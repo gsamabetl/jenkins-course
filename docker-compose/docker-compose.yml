@@ -3,17 +3,17 @@ services:
   jenkins:
     image: jenkins/jenkins:lts
     ports:
-      - "8080:8080"
+      - "8081:8081"
       - "50000:50000"
     networks:
-      - jenkins
+      - jenkins1
     volumes:
       - /var/lib/jenkins:/var/lib/jenkins
       - /var/run/docker.sock:/var/run/docker.sock
   postgres:
     image: postgres:9.6
     networks:
-      - jenkins
+      - jenkins1
     environment:
       POSTGRES_USER: sonar
       POSTGRES_PASSWORD: sonarpasswd
@@ -25,7 +25,7 @@ services:
       - "9000:9000"
       - "9092:9092"
     networks:
-      - jenkins
+      - jenkins1
     environment:
       SONARQUBE_JDBC_USERNAME: sonar
       SONARQUBE_JDBC_PASSWORD: sonarpasswd
